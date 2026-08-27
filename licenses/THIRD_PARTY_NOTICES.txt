@@ -1,0 +1,16 @@
+Beacon V2 Flasher includes the xPack OpenOCD distribution 0.12.0-7.
+
+OpenOCD is licensed under the GNU General Public License version 2.
+The complete license texts and notices shipped by xPack are installed under:
+
+  openocd\distro-info\licenses
+
+Project and release information:
+
+  https://openocd.org/
+  https://github.com/openocd-org/openocd
+  https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.12.0-7
+
+Beacon V2 Flasher is a separate process that invokes the unmodified OpenOCD
+executable. OpenOCD and its bundled libraries remain under their respective
+licenses.

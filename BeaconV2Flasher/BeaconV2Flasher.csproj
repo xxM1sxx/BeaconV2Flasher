@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>BeaconV2Flasher</AssemblyName>
+    <RootNamespace>BeaconV2Flasher</RootNamespace>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>Assets\Beaconv2flasher.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Beaconv2flasher.ico" />
+    <Content Include="openocd-stlink.cfg" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\vendor\openocd\**\*"
+             Link="openocd\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+Corresponding Source Offer
+
+For three years after receiving this installer, any recipient may request the
+complete corresponding source code for the GPL-covered OpenOCD binary included
+with Beacon V2 Flasher, for no more than the reasonable physical cost of
+providing that source.
+
+Contact:
+  Qimtronics
+
+The exact upstream source used by this package is also identified by:
+
+  OpenOCD 0.12.0
+  xPack OpenOCD 0.12.0-7
+  https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.12.0-7
+  https://github.com/openocd-org/openocd/tree/v0.12.0
+
+License texts for OpenOCD and all bundled libraries are provided in the
+installed openocd\distro-info\licenses directory.
