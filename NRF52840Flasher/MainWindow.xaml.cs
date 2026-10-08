@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 
@@ -19,6 +20,26 @@ public partial class MainWindow : Window
 
     private CancellationTokenSource? _flashCancellation;
     private bool _isFlashing;
+
+    /// <summary>
+    /// Versi assembly, diambil dari &lt;Version&gt; di Directory.Build.props.
+    /// Dipakai oleh teks "Versi ..." pada header jendela.
+    /// </summary>
+    public string Version { get; } = ResolveVersion();
+
+    private static string ResolveVersion()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // InformationalVersion memakai nilai <Version> apa adanya (mis. 1.0.1).
+        var informational = assembly
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion;
+        if (!string.IsNullOrWhiteSpace(informational))
+            return informational.Split('+')[0];
+
+        return assembly.GetName().Version?.ToString(3) ?? "tidak diketahui";
+    }
 
     public MainWindow()
     {
@@ -99,6 +120,7 @@ public partial class MainWindow : Window
         LogTextBox.Clear();
         AppendLog($"ST-Link : {probe.AdapterSerial ?? probe.DeviceId}");
         AppendLog($"Firmware: {FirmwarePathTextBox.Text}");
+        AppendLog($"Chip erase: {(ChipEraseCheckBox.IsChecked == true ? "ya" : "tidak")}");
         AppendLog("Memulai OpenOCD...");
 
         try
@@ -106,6 +128,7 @@ public partial class MainWindow : Window
             var exitCode = await _openOcd.FlashAsync(
                 FirmwarePathTextBox.Text,
                 probe.AdapterSerial,
+                ChipEraseCheckBox.IsChecked == true,
                 line => Dispatcher.BeginInvoke(() => AppendLog(line)),
                 _flashCancellation.Token);
 
@@ -138,6 +161,7 @@ public partial class MainWindow : Window
         StLinkComboBox.IsEnabled = !isBusy;
         RefreshButton.IsEnabled = !isBusy;
         BrowseButton.IsEnabled = !isBusy;
+        ChipEraseCheckBox.IsEnabled = !isBusy;
         FlashProgressBar.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
         if (isBusy)
             SetStatus("Flashing dan verifying...", BusyBrush);

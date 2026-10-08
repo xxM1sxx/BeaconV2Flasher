@@ -13,6 +13,7 @@ public sealed class OpenOcdRunner(string executablePath, string configPath)
     public async Task<int> FlashAsync(
         string firmwarePath,
         string? adapterSerial,
+        bool chipEraseBeforeFlash,
         Action<string> writeLog,
         CancellationToken cancellationToken = default)
     {
@@ -42,6 +43,15 @@ public sealed class OpenOcdRunner(string executablePath, string configPath)
             startInfo.ArgumentList.Add("-c");
             startInfo.ArgumentList.Add($"adapter serial {adapterSerial}");
         }
+
+        if (chipEraseBeforeFlash)
+        {
+            startInfo.ArgumentList.Add("-c");
+            startInfo.ArgumentList.Add("init");
+            startInfo.ArgumentList.Add("-c");
+            startInfo.ArgumentList.Add("nrf52_recover");
+        }
+
         startInfo.ArgumentList.Add("-c");
         startInfo.ArgumentList.Add($"program {QuoteTcl(firmwarePath)} verify reset exit");
 

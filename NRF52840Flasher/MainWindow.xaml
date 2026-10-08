@@ -1,8 +1,8 @@
 <Window x:Class="BeaconV2Flasher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Qimtronics Beacon V2 Flasher"
-        Icon="Assets/Beaconv2flasher.ico"
+        Title="NRF52840 Flasher"
+        Icon="Assets/NRF52840 Flasher Pixel Icon.ico"
         Width="900"
         Height="720"
         MinWidth="720"
@@ -15,12 +15,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,0,0,24">
-            <TextBlock Text="Beacon V2 Flasher"
+            <TextBlock Text="NRF52840 Flasher"
                        FontFamily="Segoe UI Semibold"
                        FontSize="28" />
+            <TextBlock Text="oleh Qimtronics"
+                       Margin="0,6,0,0"
+                       FontSize="14"
+                       Foreground="{StaticResource MutedTextBrush}" />
         </StackPanel>
 
         <Border Grid.Row="1"
@@ -32,6 +37,7 @@
                 CornerRadius="14">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -87,6 +93,14 @@
                             Click="BrowseButton_Click"
                             AutomationProperties.Name="Pilih file merged hex" />
                 </Grid>
+
+                <CheckBox x:Name="ChipEraseCheckBox"
+                          Grid.Row="4"
+                          Margin="0,16,0,0"
+                          Content="Chip erase sebelum flash"
+                          FontSize="14"
+                          ToolTip="Menghapus seluruh isi flash termasuk NVS, lalu mem-flash ulang dari merged.hex"
+                          AutomationProperties.Name="Chip erase sebelum flash" />
             </Grid>
         </Border>
 
@@ -169,5 +183,24 @@
                 </Grid>
             </Grid>
         </Border>
+
+        <StackPanel Grid.Row="3"
+                    Margin="0,18,0,0"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Pembuat: Qimtronics"
+                       HorizontalAlignment="Center"
+                       FontSize="12"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       AutomationProperties.Name="Pembuat aplikasi" />
+            <TextBlock x:Name="VersionTextBlock"
+                       Text="{Binding Version,
+                                      RelativeSource={RelativeSource AncestorType=Window},
+                                      StringFormat=Versi {0}}"
+                       Margin="0,4,0,0"
+                       HorizontalAlignment="Center"
+                       FontSize="12"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       AutomationProperties.Name="Versi aplikasi" />
+        </StackPanel>
     </Grid>
 </Window>

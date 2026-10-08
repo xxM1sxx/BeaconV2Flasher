@@ -1,0 +1,22 @@
+<Project>
+
+  <!--
+    Single source of truth untuk versi NRF52840 Flasher.
+
+    Ubah <Version> di baris bawah ini saja, lalu:
+      * installer\build-installer.ps1 membaca nilai ini dan meneruskannya ke
+        Inno Setup, sehingga nama file setup dan AppVersion ikut berubah;
+      * assembly aplikasi (dan tampilan versi di jendela utama) mengambil
+        nilai yang sama.
+  -->
+  <PropertyGroup>
+    <Version>1.1.0</Version>
+    <FileVersion>$(Version).0</FileVersion>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
+    <Company>Qimtronics</Company>
+    <Product>NRF52840 Flasher</Product>
+    <Copyright>© Qimtronics</Copyright>
+  </PropertyGroup>
+
+</Project>
